@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Registro Pocket Option</title>
+
+<style>
+body { font-family: Arial; background:#0f172a; color:white; text-align:center; }
+.box { background:#1e293b; padding:20px; margin:50px auto; width:300px; border-radius:10px; }
+input, button { width:100%; padding:10px; margin:5px 0; border-radius:5px; }
+button { background:#22c55e; color:white; }
+</style>
+
+</head>
+<body>
+
+<div class="box">
+<h2>Registro</h2>
+
+<form id="form">
+<input type="text" id="nombre" placeholder="Nombre" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="text" id="username" placeholder="Usuario" required>
+<input type="password" id="password" placeholder="Contraseña" required>
+<input type="text" id="pais" placeholder="País">
+<input type="text" id="telefono" placeholder="Teléfono">
+<button type="submit">Enviar</button>
+</form>
+
+<p id="msg"></p>
+</div>
+
+<script>
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  msg.innerHTML = "Enviando...";
+
+  const data = {
+    nombre: nombre.value,
+    email: email.value,
+    username: username.value,
+    password: password.value,
+    pais: pais.value,
+    telefono: telefono.value
+  };
+
+  try {
+    const res = await fetch('/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    msg.innerHTML = result.message;
+
+  } catch {
+    msg.innerHTML = "Error de conexión";
+  }
+});
+</script>
+
+</body>
+</html>
